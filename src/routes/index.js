@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Router, Route, Switch } from "react-router-dom";
-import { connect, useDispatch } from "react-redux";
-import { compose } from "redux";
+import { useSelector } from "react-redux";
 import history from "./history";
 
 import publicRoutes from "./public";
 
-const Routes = ({ isLoggedIn, uid }) => {
-  const dispatch = useDispatch();
+const Routes = () => {
+  const userSelector = useSelector((state) => state.user);
+  console.log(userSelector);
 
   return (
     <Router history={history}>
@@ -25,11 +25,4 @@ const Routes = ({ isLoggedIn, uid }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  isLoggedIn: state && state.auth && state.auth.isLoggedIn,
-  uid: state && state.auth && state.auth.userDate && state.auth.userData.id,
-});
-
-const withConnect = connect(mapStateToProps, null);
-
-export default compose(withConnect, React.memo)(Routes);
+export default Routes;
